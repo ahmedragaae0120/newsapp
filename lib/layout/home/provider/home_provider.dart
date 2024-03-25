@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:newsapp/layout/home/widgets/categorie_details.dart';
 import 'package:newsapp/layout/home/widgets/categories_builder_widget.dart';
 import 'package:newsapp/layout/home/widgets/settings_widget.dart';
@@ -39,7 +38,9 @@ class homeProvider extends ChangeNotifier {
         selectedWidget = categorieDetails(index: index);
         break;
       case categorieItem.Environment:
-        selectedWidget = categorieDetails(index: index, );
+        selectedWidget = categorieDetails(
+          index: index,
+        );
         break;
       case categorieItem.Health:
         selectedWidget = categorieDetails(index: index);

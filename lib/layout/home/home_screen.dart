@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/layout/home/provider/home_provider.dart';
-import 'package:newsapp/layout/home/widgets/categorie_widget.dart';
 import 'package:newsapp/layout/home/widgets/categories_builder_widget.dart';
 import 'package:newsapp/layout/home/widgets/home_drawer_widget.dart';
-import 'package:newsapp/layout/home/widgets/settings_widget.dart';
-import 'package:newsapp/style/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class homeScreen extends StatelessWidget {
