@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/layout/home/widgets/artical_builder.dart';
 import 'package:newsapp/layout/home/widgets/artical_widget.dart';
 import 'package:newsapp/layout/home/widgets/source_widget.dart';
-import 'package:newsapp/models/news_Model.dart';
-import 'package:newsapp/models/source_model.dart';
+import 'package:newsapp/models/categories_Model.dart';
+import 'package:newsapp/shared/api/api_manager.dart';
 
 class categorieDetails extends StatefulWidget {
-  int index;
-  categorieDetails({super.key, required this.index});
+  categoriesModel categoriesmodel;
+  categorieDetails({super.key, required this.categoriesmodel});
 
   @override
   State<categorieDetails> createState() => _categorieDetailsState();
@@ -17,35 +18,49 @@ class _categorieDetailsState extends State<categorieDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: sourceModel.sources.length,
-      child: Column(
-        children: [
-          TabBar(
-            onTap: (index) {
-              selectedSource = index;
-              setState(() {});
-            },
-            dividerColor: Colors.transparent,
-            indicatorColor: Colors.transparent,
-            isScrollable: true,
-            tabs: sourceModel.sources
-                .map((source) => sourceWidget(
-                      source: source,
-                      isSelected:
-                          selectedSource == sourceModel.sources.indexOf(source),
-                    ))
-                .toList(),
+    return FutureBuilder(
+      future: apiManager.getSources(widget.categoriesmodel.id ?? ""),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator.adaptive());
+        } else if (snapshot.hasError || snapshot.data?.status == "error") {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(snapshot.data?.message ?? snapshot.error.toString()),
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  child: Text("try again")),
+            ],
+          );
+        }
+        var sources = snapshot.data?.sources ?? [];
+        return DefaultTabController(
+          length: sources.length,
+          child: Column(
+            children: [
+              TabBar(
+                onTap: (index) {
+                  selectedSource = index;
+                  setState(() {});
+                },
+                dividerColor: Colors.transparent,
+                indicatorColor: Colors.transparent,
+                isScrollable: true,
+                tabs: sources
+                    .map((source) => sourceWidget(
+                          source: source,
+                          isSelected: selectedSource == sources.indexOf(source),
+                        ))
+                    .toList(),
+              ),
+              articalBuilder(source: sources[selectedSource]),
+            ],
           ),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) =>
-                  articalWidget(newsmodel: newsModel.news[index]),
-              itemCount: newsModel.news.length,
-            ),
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }

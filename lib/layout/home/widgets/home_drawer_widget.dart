@@ -37,7 +37,8 @@ class homeDrawerWidget extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     providerhome.changeSelectedMenuItem(
-                        NewSelectedMenuItem: menuItem.categories);
+                        NewSelectedMenuItem: menuItem.categories,
+                        context: context);
                   },
                   child: Row(
                     children: [
@@ -62,7 +63,8 @@ class homeDrawerWidget extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     providerhome.changeSelectedMenuItem(
-                        NewSelectedMenuItem: menuItem.settings);
+                        NewSelectedMenuItem: menuItem.settings,
+                        context: context);
                   },
                   child: Row(
                     children: [

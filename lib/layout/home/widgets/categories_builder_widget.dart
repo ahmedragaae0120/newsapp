@@ -5,7 +5,8 @@ import 'package:newsapp/models/categories_Model.dart';
 import 'package:provider/provider.dart';
 
 class categoriesBuilderWidget extends StatelessWidget {
-  const categoriesBuilderWidget({super.key});
+  categoriesBuilderWidget({super.key});
+  List<categoriesModel> categories = categoriesModel.categories;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +40,9 @@ class categoriesBuilderWidget extends StatelessWidget {
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
                   providerhome.oncategorieClick(
-                      index: index,
-                      title: categoriesModel.categories[index].title,
-                      NewSelectedMenuItem: categorieItem.Bussines);
+                    title: categoriesModel.categories[index].title,
+                    categoriesmodel: categories[index],
+                  );
                 },
                 child: categorieWidget(
                   index: index,
