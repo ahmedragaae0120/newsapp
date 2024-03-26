@@ -2,56 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/layout/home/widgets/categorie_details.dart';
 import 'package:newsapp/layout/home/widgets/categories_builder_widget.dart';
 import 'package:newsapp/layout/home/widgets/settings_widget.dart';
+import 'package:newsapp/models/categories_Model.dart';
 
 class homeProvider extends ChangeNotifier {
   Widget selectedWidget = categoriesBuilderWidget();
+  categoriesModel? categoriesmodel;
   String titleAppbar = "News App";
 
-  changeSelectedMenuItem({required menuItem NewSelectedMenuItem}) {
+  changeSelectedMenuItem(
+      {required menuItem NewSelectedMenuItem, required BuildContext context}) {
     switch (NewSelectedMenuItem) {
       case menuItem.categories:
-        selectedWidget = const categoriesBuilderWidget();
+        selectedWidget = categoriesBuilderWidget();
         titleAppbar = "News App";
+        Navigator.pop(context);
         break;
       case menuItem.settings:
         selectedWidget = const settingsWidget();
         titleAppbar = "Settings";
+        Navigator.pop(context);
         break;
     }
     notifyListeners();
   }
 
   oncategorieClick(
-      {required int index,
-      required String title,
-      required categorieItem NewSelectedMenuItem}) {
+      {required String title, required categoriesModel categoriesmodel}) {
     if (titleAppbar == title) return;
     titleAppbar = title;
-    switch (NewSelectedMenuItem) {
-      case categorieItem.Sports:
-        selectedWidget = categorieDetails(index: index);
-        break;
-      case categorieItem.Sports:
-        selectedWidget = categorieDetails(index: index);
-        break;
-      case categorieItem.Bussines:
-        selectedWidget = categorieDetails(index: index);
-        break;
-      case categorieItem.Environment:
-        selectedWidget = categorieDetails(
-          index: index,
-        );
-        break;
-      case categorieItem.Health:
-        selectedWidget = categorieDetails(index: index);
-        break;
-      case categorieItem.Politics:
-        selectedWidget = categorieDetails(index: index);
-        break;
-      case categorieItem.Science:
-        selectedWidget = categorieDetails(index: index);
-        break;
-    }
+    selectedWidget = categorieDetails(categoriesmodel: categoriesmodel);
     notifyListeners();
   }
 }
@@ -61,11 +40,11 @@ enum menuItem {
   settings,
 }
 
-enum categorieItem {
-  Sports,
-  Bussines,
-  Environment,
-  Health,
-  Politics,
-  Science,
-}
+// enum categorieItem {
+//   Sports,
+//   Bussines,
+//   Environment,
+//   Health,
+//   Politics,
+//   Science,
+// }
