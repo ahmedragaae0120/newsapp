@@ -22,8 +22,11 @@ class articalWidget extends StatelessWidget {
                   Center(
                       child: CircularProgressIndicator(
                           value: downloadProgress.progress)),
-              errorWidget: (context, url, error) =>
-                  const Center(child: Icon(Icons.error)),
+              errorWidget: (context, url, error) => Center(
+                  child: Image.asset(
+                "assets/images/errorImage.PNG",
+                fit: BoxFit.cover,
+              )),
             ),
           ),
           Text(article.source?.name ?? ""),
