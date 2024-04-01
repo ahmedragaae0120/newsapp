@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/layout/home/widgets/artical_widget.dart';
 import 'package:newsapp/layout/home/widgets/categorie_details.dart';
 import 'package:newsapp/layout/home/widgets/categories_builder_widget.dart';
 import 'package:newsapp/layout/home/widgets/settings_widget.dart';
 import 'package:newsapp/models/categories_Model.dart';
+import 'package:newsapp/models/news_response/atricle.dart';
 
 class homeProvider extends ChangeNotifier {
   Widget selectedWidget = categoriesBuilderWidget();
@@ -31,6 +33,12 @@ class homeProvider extends ChangeNotifier {
     if (titleAppbar == title) return;
     titleAppbar = title;
     selectedWidget = categorieDetails(categoriesmodel: categoriesmodel);
+    notifyListeners();
+  }
+
+  searchClick({required Article article, required String title}) {
+    titleAppbar = title;
+    selectedWidget = articalWidget(article: article);
     notifyListeners();
   }
 }
