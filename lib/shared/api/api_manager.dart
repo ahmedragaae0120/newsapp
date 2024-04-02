@@ -34,8 +34,8 @@ class apiManager {
   static Future<NewsResponse> searchNews(String textSearch) async {
     //https://newsapi.org/v2/top-headlines?q=mmmmm&apiKey=e95fceda6d274d78bade4ba56ba9191b
     var url = Uri.https(baseUrl, "/v2/top-headlines", {
-      "apiKey": apiKey,
       "q": textSearch,
+      "apiKey": apiKey,
     });
     var response = await http.get(url);
     var json = jsonDecode(response.body);

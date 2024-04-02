@@ -36,10 +36,17 @@ class homeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  searchClick({required Article article, required String title}) {
+  changeSelecetedWidget({required Widget newSelecetedWidget}) {
+    if (selectedWidget == newSelecetedWidget) return;
+    selectedWidget = newSelecetedWidget;
+    notifyListeners();
+  }
+
+  Widget searchClick({required Article article, required String title}) {
     titleAppbar = title;
     selectedWidget = articalWidget(article: article);
     notifyListeners();
+    return selectedWidget;
   }
 }
 

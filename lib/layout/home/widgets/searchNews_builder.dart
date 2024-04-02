@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:newsapp/layout/home/provider/home_provider.dart';
 import 'package:newsapp/layout/home/widgets/artical_widget.dart';
@@ -39,9 +41,8 @@ class _searchNewsBuilderState extends State<searchNewsBuilder> {
         return Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) {
-              providerhome.searchClick(
-                  article: newsList[index], title: widget.searchController);
-              return articalWidget(article: newsList[index]);
+              providerhome.changeSelecetedWidget(
+                  newSelecetedWidget: articalWidget(article: newsList[index]));
             },
             itemCount: newsList.length,
           ),
