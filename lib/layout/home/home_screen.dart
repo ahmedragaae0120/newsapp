@@ -12,6 +12,7 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     homeProvider providerhome = Provider.of<homeProvider>(context);
+    bool showAnimSearchBarWidget =true;
 
     return Container(
       decoration: BoxDecoration(
@@ -26,7 +27,10 @@ class homeScreen extends StatelessWidget {
             style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
           ),
           actions: [
-            animSearchBarWidget(),
+            Visibility(
+              visible: providerhome.titleAppbar != "News App"?true:false,
+              child: animSearchBarWidget(),
+            ),
           ],
         ),
         drawer: homeDrawerWidget(),

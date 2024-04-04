@@ -10,6 +10,7 @@ class homeProvider extends ChangeNotifier {
   Widget selectedWidget = categoriesBuilderWidget();
   categoriesModel? categoriesmodel;
   String titleAppbar = "News App";
+  String texeSearch = "";
 
   changeSelectedMenuItem(
       {required menuItem NewSelectedMenuItem, required BuildContext context}) {
@@ -47,6 +48,12 @@ class homeProvider extends ChangeNotifier {
     selectedWidget = articalWidget(article: article);
     notifyListeners();
     return selectedWidget;
+  }
+
+  changetexeSearch(String newTextSearch) {
+    if (texeSearch == newTextSearch) return;
+    texeSearch = newTextSearch;
+    notifyListeners();
   }
 }
 

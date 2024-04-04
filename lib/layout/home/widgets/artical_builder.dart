@@ -9,7 +9,8 @@ import 'package:provider/provider.dart';
 
 class articalBuilder extends StatefulWidget {
   final Source source;
-  const articalBuilder({super.key, required this.source});
+  final String textController;
+  const articalBuilder({super.key, required this.source, this.textController=""});
 
   @override
   State<articalBuilder> createState() => _articalBuilderState();
@@ -20,7 +21,7 @@ class _articalBuilderState extends State<articalBuilder> {
   Widget build(BuildContext context) {
     homeProvider providerhome = Provider.of<homeProvider>(context);
     return FutureBuilder(
-      future: apiManager.getNews(widget.source.id ?? ""),
+      future: apiManager.getNews(widget.source.id ?? "",textSearch: widget.textController),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator.adaptive());
