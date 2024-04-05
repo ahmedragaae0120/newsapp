@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/layout/home/descriptionNews/descriptionNews_screen.dart';
 import 'package:newsapp/layout/home/provider/home_provider.dart';
 import 'package:newsapp/layout/home/widgets/artical_widget.dart';
+import 'package:newsapp/layout/home/widgets/categories_builder_widget.dart';
+import 'package:newsapp/layout/home/widgets/settings_widget.dart';
 import 'package:newsapp/models/news_response/atricle.dart';
 import 'package:newsapp/models/sourses_response/sources_response.dart';
 import 'package:newsapp/shared/api/api_manager.dart';
@@ -9,8 +11,9 @@ import 'package:provider/provider.dart';
 
 class articalBuilder extends StatefulWidget {
   final Source source;
-  final String textController;
-  const articalBuilder({super.key, required this.source, this.textController=""});
+  final String? searchValue;
+  const articalBuilder(
+      {super.key, required this.source, required this.searchValue});
 
   @override
   State<articalBuilder> createState() => _articalBuilderState();
@@ -21,7 +24,8 @@ class _articalBuilderState extends State<articalBuilder> {
   Widget build(BuildContext context) {
     homeProvider providerhome = Provider.of<homeProvider>(context);
     return FutureBuilder(
-      future: apiManager.getNews(widget.source.id ?? "",textSearch: widget.textController),
+      future: apiManager.getNews(
+          widget.source.id ?? "", textSearch: widget.searchValue),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator.adaptive());

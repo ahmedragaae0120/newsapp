@@ -10,7 +10,6 @@ class homeProvider extends ChangeNotifier {
   Widget selectedWidget = categoriesBuilderWidget();
   categoriesModel? categoriesmodel;
   String titleAppbar = "News App";
-  String texeSearch = "";
 
   changeSelectedMenuItem(
       {required menuItem NewSelectedMenuItem, required BuildContext context}) {
@@ -43,16 +42,18 @@ class homeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Widget searchClick({required Article article, required String title}) {
-    titleAppbar = title;
-    selectedWidget = articalWidget(article: article);
+  String texeSearch = "";
+  changetexeSearch(String? newTextSearch) {
+    if (texeSearch == newTextSearch) return;
+    texeSearch = newTextSearch ?? "";
     notifyListeners();
-    return selectedWidget;
   }
 
-  changetexeSearch(String newTextSearch) {
-    if (texeSearch == newTextSearch) return;
-    texeSearch = newTextSearch;
+ String? newsUrl;
+
+  setUrl(String newUrl) {
+    if (newsUrl== newUrl) return;
+    newsUrl= newUrl;
     notifyListeners();
   }
 }

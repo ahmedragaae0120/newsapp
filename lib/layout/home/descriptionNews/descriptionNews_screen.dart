@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/layout/home/provider/home_provider.dart';
-import 'package:newsapp/layout/home/widgets/animSearchBar_widget.dart';
-import 'package:newsapp/layout/home/widgets/categories_builder_widget.dart';
-import 'package:newsapp/layout/home/widgets/home_drawer_widget.dart';
+import 'package:newsapp/layout/home/widgets/webViewContainer.dart';
 import 'package:newsapp/models/news_response/atricle.dart';
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class descriptionScreen extends StatelessWidget {
   final Article article;
@@ -14,6 +13,7 @@ class descriptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     homeProvider providerhome = Provider.of<homeProvider>(context);
     double height = MediaQuery.of(context).size.height;
+    WebViewController webController = WebViewController();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -48,6 +48,17 @@ class descriptionScreen extends StatelessWidget {
               ),
               SizedBox(height: height * 0.04),
               Text(article.description ?? ""),
+              // WebViewWidget(controller:webController, ),
+              TextButton(
+                onPressed: () {
+                  providerhome.setUrl(article.url ?? "");
+                  Navigator.of(context).pushNamed(webViewContainer.route_name);
+                },
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text("View Full Article...."),
+                ),
+              )
             ],
           ),
         )

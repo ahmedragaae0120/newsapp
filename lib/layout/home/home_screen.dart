@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/layout/home/provider/home_provider.dart';
@@ -12,7 +14,7 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     homeProvider providerhome = Provider.of<homeProvider>(context);
-    bool showAnimSearchBarWidget =true;
+    bool showAnimSearchBarWidget = true;
 
     return Container(
       decoration: BoxDecoration(
@@ -28,12 +30,17 @@ class homeScreen extends StatelessWidget {
           ),
           actions: [
             Visibility(
-              visible: providerhome.titleAppbar != "News App"?true:false,
+              visible: providerhome.titleAppbar != "News App" ? true : false,
               child: animSearchBarWidget(),
             ),
           ],
         ),
-        drawer: homeDrawerWidget(),
+        drawer: InkWell(
+          onTap: () {
+            providerhome.texeSearch = "";
+          },
+          child: homeDrawerWidget(),
+        ),
         body: providerhome.selectedWidget,
       ),
     );

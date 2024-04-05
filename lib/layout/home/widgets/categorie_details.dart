@@ -59,7 +59,10 @@ class _categorieDetailsState extends State<categorieDetails> {
                         ))
                     .toList(),
               ),
-              articalBuilder(source: sources[selectedSource],textController:providerhome.texeSearch),
+              articalBuilder(
+                  source: sources[selectedSource],
+                  searchValue: providerhome.texeSearch,
+                ),
             ],
           ),
         );
