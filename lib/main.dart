@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/layout/home/home_screen.dart';
 import 'package:newsapp/layout/home/provider/home_provider.dart';
+import 'package:newsapp/layout/home/widgets/webViewContainer.dart';
 import 'package:newsapp/shared/style/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,10 @@ class newsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme.lightTheme,
       themeMode: ThemeMode.light,
-      routes: {homeScreen.route_name: (context) => homeScreen()},
+      routes: {
+        homeScreen.route_name: (context) => homeScreen(),
+        webViewContainer.route_name:(context) => webViewContainer(),
+      },
       initialRoute: homeScreen.route_name,
     );
   }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/layout/home/provider/home_provider.dart';
 import 'package:newsapp/layout/home/widgets/artical_builder.dart';
 import 'package:newsapp/layout/home/widgets/artical_widget.dart';
 import 'package:newsapp/layout/home/widgets/source_widget.dart';
 import 'package:newsapp/models/categories_Model.dart';
 import 'package:newsapp/shared/api/api_manager.dart';
+import 'package:provider/provider.dart';
 
 class categorieDetails extends StatefulWidget {
   categoriesModel categoriesmodel;
@@ -18,6 +20,7 @@ class _categorieDetailsState extends State<categorieDetails> {
 
   @override
   Widget build(BuildContext context) {
+    homeProvider providerhome = Provider.of<homeProvider>(context);
     return FutureBuilder(
       future: apiManager.getSources(widget.categoriesmodel.id ?? ""),
       builder: (context, snapshot) {
@@ -56,7 +59,10 @@ class _categorieDetailsState extends State<categorieDetails> {
                         ))
                     .toList(),
               ),
-              articalBuilder(source: sources[selectedSource]),
+              articalBuilder(
+                  source: sources[selectedSource],
+                  searchValue: providerhome.texeSearch,
+                ),
             ],
           ),
         );

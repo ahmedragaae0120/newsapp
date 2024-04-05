@@ -18,11 +18,13 @@ class apiManager {
     return sourcesResponse;
   }
 
-  static Future<NewsResponse> getNews(String sourceId) async {
-    //https://newsapi.org/v2/everything?apiKey=e95fceda6d274d78bade4ba56ba9191&sources=bbc-news
+  static Future<NewsResponse> getNews(String sourceId,
+      {String? textSearch }) async {
+    //https://newsapi.org/v2/everything?apiKey=e95fceda6d274d78bade4ba56ba9191b&sources=bbc-news
     var url = Uri.https(baseUrl, "/v2/everything", {
       "apiKey": apiKey,
       "sources": sourceId,
+      "q": textSearch,
     });
     var response = await http.get(url);
     var json = jsonDecode(response.body);
@@ -30,4 +32,17 @@ class apiManager {
 
     return newsrespone;
   }
+
+  // static Future<NewsResponse> searchNews(String textSearch) async {
+  //   //https://newsapi.org/v2/top-headlines?q=mmmmm&apiKey=e95fceda6d274d78bade4ba56ba9191b
+  //   var url = Uri.https(baseUrl, "/v2/top-headlines", {
+  //     "q": textSearch,
+  //     "apiKey": apiKey,
+  //   });
+  //   var response = await http.get(url);
+  //   var json = jsonDecode(response.body);
+  //   NewsResponse newsrespone = NewsResponse.fromJson(json);
+
+  //   return newsrespone;
+  // }
 }

@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/layout/home/descriptionNews/descriptionNews_screen.dart';
+import 'package:newsapp/layout/home/provider/home_provider.dart';
 import 'package:newsapp/layout/home/widgets/artical_widget.dart';
+import 'package:newsapp/layout/home/widgets/categories_builder_widget.dart';
+import 'package:newsapp/layout/home/widgets/settings_widget.dart';
 import 'package:newsapp/models/news_response/atricle.dart';
 import 'package:newsapp/models/sourses_response/sources_response.dart';
 import 'package:newsapp/shared/api/api_manager.dart';
+import 'package:provider/provider.dart';
 
 class articalBuilder extends StatefulWidget {
   final Source source;
-  const articalBuilder({super.key, required this.source});
+  final String? searchValue;
+  const articalBuilder(
+      {super.key, required this.source, required this.searchValue});
 
   @override
   State<articalBuilder> createState() => _articalBuilderState();
@@ -15,8 +22,10 @@ class articalBuilder extends StatefulWidget {
 class _articalBuilderState extends State<articalBuilder> {
   @override
   Widget build(BuildContext context) {
+    homeProvider providerhome = Provider.of<homeProvider>(context);
     return FutureBuilder(
-      future: apiManager.getNews(widget.source.id ?? ""),
+      future: apiManager.getNews(
+          widget.source.id ?? "", textSearch: widget.searchValue),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator.adaptive());
@@ -36,8 +45,14 @@ class _articalBuilderState extends State<articalBuilder> {
         List<Article>? newsList = snapshot.data?.articles ?? [];
         return Expanded(
           child: ListView.builder(
-            itemBuilder: (context, index) =>
-                articalWidget(article: newsList[index]),
+            itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                providerhome.changeSelecetedWidget(
+                    newSelecetedWidget:
+                        descriptionScreen(article: newsList[index]));
+              },
+              child: articalWidget(article: newsList[index]),
+            ),
             itemCount: newsList.length,
           ),
         );
